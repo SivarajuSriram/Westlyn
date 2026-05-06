@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  /* This maps the font-sans utility to your custom font variable */
+  --font-sans: var(--font-breul), ui-sans-serif, system-ui, sans-serif;
+
+  /* Custom "Quiet Luxury" spacing for Breul Grotesk A */
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-widest: 0.3em;
+  
+  /* You can also define your custom background color here */
+  --color-plans-bg: #F9FAFB;
+}
