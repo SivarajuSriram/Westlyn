@@ -14,10 +14,8 @@ export default function Navbar({ refs }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   
-  // Ref to store the last scroll position without triggering re-renders
   const lastScrollY = useRef(0);
 
-  // 1. Logic to Lock/Unlock Scroll
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -29,20 +27,14 @@ export default function Navbar({ refs }: NavbarProps) {
     };
   }, [isMenuOpen]);
 
-  // 2. Smart Scroll Logic (Hide on Down, Show on Up)
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // Determine background state (glassmorphism vs transparent)
       setIsScrolled(currentScrollY > 50);
 
-      // Smart Header Logic
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        // Scrolling down & passed threshold - Hide
         setIsVisible(false);
       } else {
-        // Scrolling up - Show
         setIsVisible(true);
       }
 
@@ -75,24 +67,24 @@ export default function Navbar({ refs }: NavbarProps) {
 
   return (
     <>
-      {/* Smart Navbar Wrapper */}
+      {/* Smart Navbar Wrapper - REDUCED PADDING: from py-8 to py-4 md:py-6 */}
       <nav 
-        className={`fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-8 py-8 md:px-16 transition-all duration-500 ease-in-out ${
-          isScrolled ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent'
+        className={`fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-8 py-4 md:px-16 md:py-6 transition-all duration-500 ease-in-out ${
+          isScrolled ? 'bg-black/90 backdrop-blur-md py-3 md:py-4' : 'bg-transparent'
         } ${
           isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        {/* Logo */}
+        {/* Logo - UPDATED ALT TEXT & DIMENSIONS */}
         <div 
-          className="relative h-18 w-42 cursor-pointer" 
+          className="relative h-10 w-32 md:h-12 md:w-40 cursor-pointer" 
           onClick={() => scrollToSection(refs.home)}
         >
           <Image 
             src="/WestlynLogo.svg" 
-            alt="Ankura Homes" 
+            alt="Westlyn" 
             fill 
-            className="object-center brightness-0 invert" 
+            className="object-contain brightness-0 invert" 
           />
         </div>
 
@@ -101,7 +93,7 @@ export default function Navbar({ refs }: NavbarProps) {
           onClick={() => setIsMenuOpen(true)} 
           className="text-white hover:text-[#b4945c] transition-colors p-2"
         >
-          <Menu size={32} strokeWidth={1.5} />
+          <Menu size={28} strokeWidth={1.5} />
         </button>
       </nav>
 
@@ -114,22 +106,23 @@ export default function Navbar({ refs }: NavbarProps) {
           onClick={() => setIsMenuOpen(false)} 
         />
         
-        <div className={`relative h-full w-full md:w-[450px] bg-black p-12 flex flex-col justify-start pt-32 transition-transform duration-500 ease-out will-change-transform ${
+        {/* REDUCED TOP PADDING: from pt-32 to pt-20 md:pt-24 */}
+        <div className={`relative h-full w-full md:w-[450px] bg-black p-12 flex flex-col justify-start pt-20 md:pt-24 transition-transform duration-500 ease-out will-change-transform ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           <button 
             onClick={() => setIsMenuOpen(false)} 
-            className="absolute top-10 right-10 text-white hover:rotate-90 transition-transform duration-300"
+            className="absolute top-8 right-8 text-white hover:rotate-90 transition-transform duration-300"
           >
-            <X size={40} strokeWidth={1} />
+            <X size={32} strokeWidth={1} />
           </button>
 
-          <div className="flex flex-col space-y-8 font-sans">
+          <div className="flex flex-col space-y-6 md:space-y-8 font-sans">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.ref)}
-                className="text-4xl md:text-5xl text-white font-light uppercase tracking-tighter hover:text-[#b4945c] transition-colors text-left"
+                className="text-3xl md:text-5xl text-white font-mosseta font-light uppercase tracking-tighter hover:text-[#b4945c] transition-colors text-left"
               >
                 {link.name}
               </button>

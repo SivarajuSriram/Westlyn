@@ -1,13 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  /* This maps the font-sans utility to your custom font variable */
-  --font-sans: var(--font-breul), ui-sans-serif, system-ui, sans-serif;
+  /* Ensure these match the 'variable' names in your layout.tsx */
+  --font-mosseta: var(--font-mosseta);
+  --font-geologica: var(--font-geologica);
+}
 
-  /* Custom "Quiet Luxury" spacing for Breul Grotesk A */
-  --letter-spacing-tighter: -0.04em;
-  --letter-spacing-widest: 0.3em;
+/* Base styles to ensure colors and fonts apply globally */
+@layer base {
+  body {
+    @apply font-geologica bg-white text-zinc-900 antialiased;
+  }
   
-  /* You can also define your custom background color here */
-  --color-plans-bg: #F9FAFB;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mosseta;
+  }
 }

@@ -1,137 +1,69 @@
 "use client";
 import { useState } from 'react';
-import { Phone, Mail, ChevronDown, Download, MapPin } from 'lucide-react';
-import DownloadModal from './DownloadModal'; // Ensure the path is correct
+import { Phone, Mail } from 'lucide-react';
+import LeadForm from './LeadForm'; 
 
 export default function ContactSection() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
-
-  const handleTriggerModal = (e: React.FormEvent, title: string) => {
-    e.preventDefault();
-    setModalTitle(title);
-    setIsModalOpen(true);
-  };
-
   return (
-    <section id="contact" className="w-full bg-zinc-50 py-32 font-sans">
-      <div className="w-full px-8 md:px-24 flex flex-col lg:flex-row gap-20 items-center">
+    /* REDUCED PADDING: from py-24 md:py-40 to py-12 md:py-20 */
+    <section id="contact" className="w-full bg-white py-12 md:py-20 font-sans overflow-hidden">
+      <div className="w-full px-8 md:px-24 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
         
-        {/* Left Side: Contact Information */}
-        <div className="flex-1 space-y-12">
+        {/* Column 1: Contact Information (Left Side) - TIGHTENED SPACING */}
+        <div className="flex-1 space-y-10 md:space-y-12">
           <div className="space-y-6">
-            <h2 className="text-6xl md:text-8xl font-normal text-zinc-900 leading-tight">
-              Start your journey
+            <h2 className="text-4xl md:text-7xl font-normal text-zinc-900 leading-[1] tracking-tighter uppercase font-mosseta">
+              Let's <br className="hidden md:block" /> Connect
             </h2>
-            <p className="text-zinc-500 text-xl font-light max-w-lg leading-relaxed">
-              Experience the pinnacle of luxury living. Reach out to our team for a personalized site visit and exclusive brochure.
+            {/* FIXED BOLDNESS: Ensured font-light and text-zinc-500 for a softer visual weight */}
+            <p className="text-lg md:text-xl font-geologica font-light max-w-lg leading-relaxed tracking-tight text-zinc-500">
+              Discover refined living at its finest. Connect with our team for a personalized site tour and exclusive project brochure. 
             </p>
           </div>
 
-          <div className="space-y-10">
-            {/* Phone Info */}
+          <div className="space-y-8 md:space-y-10">
+            {/* Phone Info - SLIGHTLY REDUCED ICON SIZE */}
             <div className="flex items-center gap-6 group">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm border border-zinc-100 transition-transform group-hover:scale-110">
-                <Phone size={22} className="text-zinc-900" />
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-zinc-50 rounded-full flex items-center justify-center border border-zinc-100 transition-all duration-500 group-hover:bg-zinc-900 group-hover:text-white group-hover:scale-110">
+                <Phone size={20} strokeWidth={1.5} />
               </div>
               <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold block mb-1">
+                <span className="text-[10px] font-geologica uppercase tracking-[0.4em] text-zinc-400 font-bold block mb-1">
                   Call Us
                 </span>
-                <span className="text-2xl font-medium text-zinc-900">+91 83676 70909</span>
+                <span className="text-xl md:text-2xl font-light font-geologica text-zinc-900 tracking-tighter">+91 12345 12345</span>
               </div>
             </div>
 
             {/* Email Info */}
             <div className="flex items-center gap-6 group">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm border border-zinc-100 transition-transform group-hover:scale-110">
-                <Mail size={22} className="text-zinc-900" />
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-zinc-50 rounded-full flex items-center justify-center border border-zinc-100 transition-all duration-500 group-hover:bg-zinc-900 group-hover:text-white group-hover:scale-110">
+                <Mail size={20} strokeWidth={1.5} />
               </div>
               <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold block mb-1">
+                <span className="text-[10px] font-geologica uppercase tracking-[0.4em] text-zinc-400 font-bold block mb-1">
                   Email Us
                 </span>
-                <span className="text-2xl font-medium text-zinc-900">sales@ankurahomes.com</span>
+                <span className="text-xl font-geologica md:text-2xl font-light text-zinc-900 tracking-tighter">johndoe@gmail.com</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Request Form Card */}
-        <div className="w-full lg:w-[580px]">
-          <div className="bg-white p-10 md:p-14 rounded-[50px] shadow-[0_50px_100px_rgba(0,0,0,0.04)] border border-zinc-50">
-            <h3 className="text-3xl font-normal text-zinc-900 mb-2">Request Details</h3>
-            <p className="text-zinc-400 mb-12 font-light">Fill in your details and we'll get back to you shortly.</p>
+        {/* Column 2: Lead Form Card (Right Side) - TIGHTENED PADDING */}
+        <div className="w-full lg:w-[550px] xl:w-[600px] lg:sticky lg:top-32">
+          <div className="bg-zinc-50 p-8 md:p-12 rounded-[48px] border border-zinc-100 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.05)] animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            {/* REDUCED MARGIN: from mb-12 to mb-8 */}
+            <div className="mb-8">
+              <h3 className="text-2xl md:text-3xl font-normal text-zinc-900 mb-3 font-mosseta tracking-tighter uppercase">Register your interest</h3>
+              <p className="text-zinc-500 font-light font-geologica text-base">Please fill in your details and we will get back to you shortly.</p>
+            </div>
             
-            <form 
-              onSubmit={(e) => handleTriggerModal(e, "Enquiry Received")} 
-              className="space-y-10"
-            >
-              {/* Name Input */}
-              <div className="flex items-center gap-4 border-b border-zinc-100 pb-4">
-                <input 
-                  required 
-                  type="text" 
-                  placeholder="Your Name" 
-                  className="w-full bg-transparent text-lg font-light outline-none placeholder:text-zinc-300" 
-                />
-              </div>
-              
-              {/* Phone Input with Country Code */}
-              <div className="flex items-center gap-4 border-b border-zinc-100 pb-4">
-                <div className="flex items-center gap-2 text-zinc-400 border-r border-zinc-100 pr-4">
-                  <span className="text-sm font-bold">IN +91</span>
-                  <ChevronDown size={14} />
-                </div>
-                <input 
-                  required 
-                  type="tel" 
-                  placeholder="Phone Number" 
-                  className="w-full bg-transparent text-lg font-light outline-none placeholder:text-zinc-300" 
-                />
-              </div>
-
-              {/* Email Input */}
-              <div className="flex items-center gap-4 border-b border-zinc-100 pb-4">
-                <input 
-                  required 
-                  type="email" 
-                  placeholder="Email Address" 
-                  className="w-full bg-transparent text-lg font-light outline-none placeholder:text-zinc-300" 
-                />
-              </div>
-
-              {/* Disclaimer Checkbox */}
-              <div className="flex items-start gap-4">
-                <input 
-                  required 
-                  type="checkbox" 
-                  className="mt-1.5 h-4 w-4 accent-black rounded-sm border-zinc-200" 
-                />
-                <p className="text-[10px] text-zinc-400 leading-relaxed font-light">
-                  Disclaimer: I authorize Ankura Homes and its representatives to Call, SMS, Email or WhatsApp me about its products and offers. This consent overrides any registration for DND/NDNC.
-                </p>
-              </div>
-
-              {/* Submit Button - Triggers Modal */}
-              <button 
-                type="submit"
-                className="w-full bg-[#1A232E] text-white py-6 rounded-full flex items-center justify-center gap-3 font-bold uppercase tracking-[0.3em] text-[11px] hover:bg-black transition-all group"
-              >
-                Submit Request
-                <Download size={18} className="group-hover:translate-y-1 transition-transform" />
-              </button>
-            </form>
+            <LeadForm buttonText="Submit Inquiry" />
           </div>
         </div>
-      </div>
 
-      {/* Imported DownloadModal Component */}
-      <DownloadModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        title={modalTitle} 
-      />
+      </div>
     </section>
   );
-} 
+}

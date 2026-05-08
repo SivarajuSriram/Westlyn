@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -14,7 +15,9 @@ import StatsSection from '@/components/Stats';
 import Specifications from '@/components/Specifications';
 
 export default function Home() {
-  const [modal, setModal] = useState({ isOpen: false, title: '' });
+  // 1. Only ONE state for the modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
   
   const homeRef = useRef(null);
   const overviewRef = useRef(null);
@@ -24,27 +27,54 @@ export default function Home() {
   const locationRef = useRef(null);
   const contactRef = useRef(null);
 
-  const openDownload = (title: string) => setModal({ isOpen: true, title });
+  const sectionRefs = {
+    home: homeRef,
+    overview: overviewRef,
+    amenities: amenitiesRef,
+    plans: plansRef,
+    gallery: galleryRef,
+    location: locationRef,
+    contact: contactRef,
+  };
+
+  // 2. Single function to handle all opens
+  const handleOpenModal = (title: string) => {
+    setModalTitle(title);
+    setIsModalOpen(true);
+  };
 
   return (
-    <main>
-      <Navbar refs={{ home: homeRef, overview: overviewRef, amenities: amenitiesRef, plans: plansRef, gallery: galleryRef, location: locationRef, contact: contactRef}} />
+    <main className="relative min-h-screen">
+        <Navbar refs={sectionRefs} />
+        
+        {/* Attach handleOpenModal to all components */}
+        <section ref={homeRef}>
+          <Hero onDownload={handleOpenModal} />
+        </section>
+
+        <StatsSection/>
+        <section ref={overviewRef}><Overview /></section>
+
+        <section ref={plansRef}>
+          <Plans onDownload={handleOpenModal} />
+        </section>
+
+        <section ref={amenitiesRef}>
+          <Amenities onDownload={handleOpenModal} />
+        </section>
+
+        <section ref={galleryRef}><Gallery /></section>
+        <section ref={locationRef}><Location /></section>
+        <section ref={contactRef}><ContactSection/></section>
+        
+        <Footer refs={sectionRefs}/>
+
       
-      <section ref={homeRef}><Hero onDownload={() => openDownload('Download Brochure')} /></section>
-      <StatsSection/>
-      <section ref={overviewRef}><Overview /></section>
-      <section ref={plansRef}><Plans onDownload={() => openDownload('Download Floor Plans')} /></section>
-      <section ref={amenitiesRef}><Amenities /></section>
-      <section ref={galleryRef}><Gallery /></section>
-      <Specifications/>
-      <section ref={locationRef}><Location /></section>
-      <section ref={contactRef}><ContactSection/></section>
-      <Footer/>
-      
+      {/* 3. Correct wiring: Both read and write to the SAME state */}
       <DownloadModal 
-        isOpen={modal.isOpen} 
-        onClose={() => setModal({ ...modal, isOpen: false })} 
-        title={modal.title} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        title={modalTitle} 
       />
     </main>
   );
