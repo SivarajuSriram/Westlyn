@@ -12,7 +12,7 @@ export default function ContactSection() {
         {/* Column 1: Contact Information (Left Side) - TIGHTENED SPACING */}
         <div className="flex-1 space-y-10 md:space-y-12">
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-7xl font-normal text-zinc-900 leading-[1] tracking-tighter uppercase font-mosseta">
+            <h2 className="text-2xl md:text-5xl font-normal text-zinc-900 leading-[1] tracking-tighter uppercase font-mosseta">
               Let's <br className="hidden md:block" /> Connect
             </h2>
             {/* FIXED BOLDNESS: Ensured font-light and text-zinc-500 for a softer visual weight */}
