@@ -13,7 +13,7 @@ export default function ContactSection() {
         <div className="flex-1 space-y-10 md:space-y-12">
           <div className="space-y-6">
             <h2 className="text-2xl md:text-5xl font-normal text-zinc-900 leading-[1] tracking-tighter uppercase font-mosseta">
-              Let's <br className="hidden md:block" /> Connect
+              Let's Connect
             </h2>
             {/* FIXED BOLDNESS: Ensured font-light and text-zinc-500 for a softer visual weight */}
             <p className="text-lg md:text-xl font-geologica font-light max-w-lg leading-relaxed tracking-tight text-zinc-500">
